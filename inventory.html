@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USU Activity Center - Student Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0078CC;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: white;
+            border-collapse: collapse;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Ensures that borders are not doubled */
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd; /* Horizontal lines */
+            font-size: 18px;
+        }
+
+        th {
+            background-color: #0078CC;
+            color: white;
+        }
+
+        /* Left-align most columns */
+        th, td {
+            text-align: left;
+        }
+
+        /* Center-align Date/Time column */
+        th:nth-child(3), td:nth-child(3) {
+            text-align: center;
+        }
+
+        /* Add hover effect on rows */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <h1>USU Activity Center - Student Records</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Student ID</th>
+                    <th>Date/Time</th>
+                    <th>Equipment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>12345</td>
+                    <td>2024-09-12 10:00 AM</td>
+                    <td>Xbox #1</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>54321</td>
+                    <td>2024-09-12 11:30 AM</td>
+                    <td>Playstation #2</td>
+                </tr>
+                <tr>
+                    <td>Michael Brown</td>
+                    <td>67890</td>
+                    <td>2024-09-12 12:45 PM</td>
+                    <td>Pool Table 1</td>
+                </tr>
+                <tr>
+                    <td>Emily Davis</td>
+                    <td>98765</td>
+                    <td>2024-09-12 02:00 PM</td>
+                    <td>Switch</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
