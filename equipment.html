@@ -4,87 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipment List</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-image: url('/static/ice.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 10px 0;
-        }
-
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #4caf50;
-            font-size: 18px;
-            padding: 10px;
-            border: 2px solid #4caf50;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .back-link:hover {
-            background-color: #4caf50;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
-<div class="container">
-    <h1>Equipment List</h1>
-
-    <h2>Available Equipment</h2>
-    <ul>
-        {% for item in equipment_data %}
-            {% if item.available %}
-                <li>{{ item.name }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    <h2>Not Available Equipment</h2>
-    <ul>
-        {% for item in equipment_data %}
-            {% if not item.available %}
-                <li>{{ item.name }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    <a href="/checkinout" class="back-link">Back to Check-In/Out</a>
-</div>
-
+    <div class="container mt-4">
+        <h1 class="mb-4">Equipment List</h1>
+        <ul class="nav nav-tabs" id="consoleTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="xbox-tab" data-toggle="tab" href="#xbox" role="tab" aria-controls="xbox" aria-selected="true">Xbox</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="playstation-tab" data-toggle="tab" href="#playstation" role="tab" aria-controls="playstation" aria-selected="false">PlayStation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="switch-tab" data-toggle="tab" href="#switch" role="tab" aria-controls="switch" aria-selected="false">Switch</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="consoleTabsContent">
+            <div class="tab-pane fade show active" id="xbox" role="tabpanel" aria-labelledby="xbox-tab">
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in equipment_data if item.console == 'Xbox' %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.available %}
+                                        Available
+                                    {% else %}
+                                        Unavailable
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="playstation" role="tabpanel" aria-labelledby="playstation-tab">
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in equipment_data if item.console == 'PlayStation' %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.available %}
+                                        Available
+                                    {% else %}
+                                        Unavailable
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="switch" role="tabpanel" aria-labelledby="switch-tab">
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in equipment_data if item.console == 'Switch' %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.available %}
+                                        Available
+                                    {% else %}
+                                        Unavailable
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
