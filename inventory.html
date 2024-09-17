@@ -51,8 +51,9 @@
             text-align: left;
         }
 
-        /* Center-align Date/Time column */
-        th:nth-child(3), td:nth-child(3) {
+        /* Center-align Date/Time and Status columns */
+        th:nth-child(4), td:nth-child(4),
+        th:nth-child(6), td:nth-child(6) {
             text-align: center;
         }
 
@@ -69,36 +70,46 @@
         <table>
             <thead>
                 <tr>
-                    <th>Student Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Student ID</th>
                     <th>Date/Time</th>
                     <th>Equipment</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>John Doe</td>
+                    <td>John</td>
+                    <td>Doe</td>
                     <td>12345</td>
                     <td>2024-09-12 10:00 AM</td>
                     <td>Xbox #1</td>
+                    <td>Active</td>
                 </tr>
                 <tr>
-                    <td>Jane Smith</td>
+                    <td>Jane</td>
+                    <td>Smith</td>
                     <td>54321</td>
                     <td>2024-09-12 11:30 AM</td>
                     <td>Playstation #2</td>
+                    <td>Inactive</td>
                 </tr>
                 <tr>
-                    <td>Michael Brown</td>
+                    <td>Michael</td>
+                    <td>Brown</td>
                     <td>67890</td>
                     <td>2024-09-12 12:45 PM</td>
                     <td>Pool Table 1</td>
+                    <td>Active</td>
                 </tr>
                 <tr>
-                    <td>Emily Davis</td>
+                    <td>Emily</td>
+                    <td>Davis</td>
                     <td>98765</td>
                     <td>2024-09-12 02:00 PM</td>
                     <td>Switch</td>
+                    <td>Inactive</td>
                 </tr>
             </tbody>
         </table>
