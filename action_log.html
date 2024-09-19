@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Log</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/ice.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Action Log</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Equipment</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in action_data %}
+            <tr>
+                <td>{{ entry.time }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.student_id }}</td>
+                <td>{{ entry.equipment }}</td>
+                <td>{{ entry.action }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
