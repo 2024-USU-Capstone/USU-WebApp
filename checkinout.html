@@ -20,34 +20,43 @@
         }
 
         form {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+            max-width: 450px;
             width: 100%;
         }
 
-        h2 {
+        .flash-container {
+            margin-bottom: 12px;
+        }
+
+        .flash {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 12px;
+            border-radius: 5px;
             text-align: center;
-            color: #333;
-            margin-bottom: 20px;
+        }
+
+        .flash.error {
+            background-color: #f2dede;
+            color: #a94442;
         }
 
         label {
+            font-weight: bold;
             display: block;
-            margin: 10px 0 5px;
-            color: #555;
+            margin-bottom: 6px;
         }
 
         input, textarea {
-            width: calc(100% - 22px); /* Adjusted for padding */
+            width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            margin-bottom: 12px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
         }
 
         .btn-container {
@@ -57,53 +66,37 @@
 
         button {
             width: 48%;
-            background-color: #4caf50;
+            background-color: #28a745;
             color: #fff;
             cursor: pointer;
-            font-size: 16px;
+            padding: 14px 0;
             border: none;
-            padding: 12px 0;
             border-radius: 4px;
             transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #218838;
         }
 
-        /* Additional styles for form animation */
-        form:hover {
-            transform: scale(1.05);
-        }
-
-        /* Additional styles for footer */
-        footer {
-            margin-top: 20px;
-            font-size: 18px;
-            text-align: center;
-            color: #fff;
-        }
-
-        /* Styles for the link */
         .links {
             margin-top: 20px;
             text-align: center;
         }
 
         .links a {
+            color: #007bff;
             text-decoration: none;
-            color: #4caf50;
-            font-size: 18px;
-            padding: 10px;
-            border: 2px solid #4caf50;
-            border-radius: 4px;
-            display: inline-block;
-            transition: background-color 0.3s, color 0.3s;
+            font-size: 16px;
         }
 
         .links a:hover {
-            background-color: #4caf50;
-            color: #fff;
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
@@ -111,15 +104,25 @@
 
 <h2>Check-In or Check-Out Equipment</h2>
 
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 <form action="/checkinout" method="post">
     <label for="name">Student Name:</label>
-    <input type="text" id="name" name="name" required>
+    <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
     <label for="numberid">Student ID:</label>
-    <input type="text" id="numberid" name="numberid" required>
+    <input type="text" id="numberid" name="studentid" placeholder="Enter your student ID" required>
 
     <label for="equipment">Equipment:</label>
-    <textarea id="equipment" name="equipment" rows="4" required></textarea>
+    <textarea id="equipment" name="equipment" rows="3" placeholder="Enter equipment name" required></textarea>
 
     <div class="btn-container">
         <button type="submit" name="action" value="checkin">Check In</button>
@@ -127,8 +130,11 @@
     </div>
 </form>
 
+<!-- Link to View Available Equipment -->
 <div class="links">
-    <a href="/equipment">View Equipment List</a>
+    <a href="/equipment?filter=available">View Available Equipment</a>
+    <br>
+    <a href="/action-log">View Action Log</a>
 </div>
 
 <footer>
