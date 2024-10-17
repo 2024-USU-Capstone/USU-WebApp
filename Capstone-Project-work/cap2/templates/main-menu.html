@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USU Activity Center</title>
     <style>
-
         .usu-logo {
-        position: absolute; /* Position the image relative to the page */
-        bottom: 10px; /* Distance from the bottom */
-        right: 10px; /* Distance from the right */
-        width: 100px; /* Adjust the size as needed */
-        height: auto; /* Maintain the aspect ratio */
+            position: absolute; /* Position the image relative to the page */
+            bottom: 10px; /* Distance from the bottom */
+            right: 10px; /* Distance from the right */
+            width: 100px; /* Adjust the size as needed */
+            height: auto; /* Maintain the aspect ratio */
         }
 
         body {
@@ -59,6 +58,26 @@
             transform: translateY(-2px);
         }
 
+        /* Logout Button Styling */
+        .logout-button {
+            position: absolute;
+            top: 20px; /* Adjust this value to move it vertically */
+            right: 20px; /* Adjust this value to move it horizontally */
+            background-color: #192cdb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #3633ff;
+        }
+
         /* Responsive adjustments for smaller screens */
         @media (max-width: 600px) {
             .container {
@@ -69,16 +88,58 @@
                 margin: 10px 0;
             }
         }
+
+        /* Clock Styling */
+        .clock {
+            position: absolute;
+            top: 100px; /* Moved the clock lower */
+            left: 775px;
+            transform: translateX(-50%);
+            font-size: 48px; /* Bigger font size */
+            font-weight: bold;
+            color: white;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Logout Button -->
+    <a href="login.html" class="btn logout-button">Logout</a>
+
+    <!-- Digital Clock -->
+    <div id="clock" class="clock"></div>
 
     <div class="container">
         <h1>USU Activity Center</h1>
         <a href="/checkinout" class="btn">Check In/Out</a>
         <a href="/tournament" class="btn">Tournament Schedule</a>
     </div>
-<!-- USU Logo in the bottom right corner -->
-    <img src="static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">
+    
+    <!-- USU Logo in the bottom right corner -->
+    <img src="USU_Logo.png" alt="USU Logo" class="usu-logo">
+
+    <!-- Clock Script -->
+    <script>
+        function updateClock() {
+            const clockElement = document.getElementById('clock');
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // If hour is 0, change to 12
+            const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+            const secondsStr = seconds < 10 ? '0' + seconds : seconds;
+            
+            const timeString = `${hours}:${minutesStr}:${secondsStr} ${ampm}`;
+            clockElement.textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000); // Update every second
+        updateClock(); // Initialize clock immediately
+    </script>
 </body>
 </html>
