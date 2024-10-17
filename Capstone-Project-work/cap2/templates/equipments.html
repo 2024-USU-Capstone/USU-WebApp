@@ -6,17 +6,36 @@
     <title>Equipment List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        .usu-logo {
+            position: absolute; /* Position the image relative to the page */
+            bottom: 10px; /* Distance from the bottom */
+            right: 10px; /* Distance from the right */
+            width: 100px; /* Adjust the size as needed */
+            height: auto; /* Maintain the aspect ratio */
+        }
+
         .table th, .table td {
             vertical-align: middle;
         }
+
         .filter-container {
             margin-bottom: 15px;
             display: flex;
             justify-content: flex-end;
         }
+
+        .top-right-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+    <!-- Main Menu Button -->
+    <a href="main-menu.html" class="btn btn-primary top-right-button">Main Menu</a>
+
     <div class="container mt-4">
         <h1 class="mb-4">Equipment List</h1>
 
@@ -148,4 +167,6 @@
         });
     </script>
 </body>
+<!-- USU Logo in the bottom right corner -->
+<img src="USU_Logo.png" alt="USU Logo" class="usu-logo">
 </html>
