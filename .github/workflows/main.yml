@@ -13,7 +13,7 @@ jobs:
               repository: '2024-USU-Capstone/USU-WebApp'
               ref: main
               token: ${{ secrets.GIT_PASSWORD }}
-              path: ./repo-with-dockerfile
+              path: ./Capstone-Project-work/cap2/
           -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v2
@@ -30,7 +30,17 @@ jobs:
             name: Build and push
             uses: docker/build-push-action@v4
             with:
-              context: ./repo-with-dockerfile/Capstone-Project-work
+              context: ./Capstone-Project-work/cap2
               platforms: linux/amd64,linux/arm64
               push: true
               tags: badejotobi/usu:0.${{ github.run_number }}
+  ARGO_CD_DEPLOYMENT:
+        runs-on: ubuntu-latest
+        steps:
+         - uses: actions/checkout@v3
+           name: changing to the repo where the dockerfile is located
+           with:
+            repository: '2024-USU-Capstone/argo-cd'
+            ref: main
+            token: ${{ secrets.GIT_PASSWORD }}
+            path: ./
