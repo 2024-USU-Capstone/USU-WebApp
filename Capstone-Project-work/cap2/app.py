@@ -10,14 +10,15 @@ app = Flask(__name__)
 app.secret_key = '!@#$%^&*(jhdshgsd'  # Required for flash messages
 
 
-'''
+
 
 ##---------- WE NEED THIS FOR SETTING ENVIRONMENT----------
 
-HOSTNAME = os.environ.get('HOSTNAME')
+MYSQL_HOST = os.environ.get('MYSQL_HOST')
 MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE')
 MYSQL_USER = os.environ.get('MYSQL_USER')
 MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
+MYSQL_PORT = os.environ.get('MYSQL_PORT')
 
 ##-----------------------------------------------------------
 '''
@@ -31,13 +32,13 @@ mydb= mysql.connector.connect(
     )
 '''
 mydb= mysql.connector.connect(
-    host=HOSTNAME,
+    host=MYSQL_HOST,
     database=MYSQL_DATABASE,  # Use your database name
     user=MYSQL_USER,                 # Use your database username
     password=MYSQL_PASSWORD,
-    port=3306
+    port=MYSQL_PORT
     )
-'''
+
 
 ##THIS IS TO CHECK THE DATABSE TABLE
 def table_check(fname, lname, studentid, equip, status):
@@ -202,7 +203,7 @@ def activity():
         if conn:
             conn.close()
 
-    # Pass the result to the template
+    # Pass the result to the temgplaxtessk
    
     #return render_template('equipment.html', rows=rows)
 
@@ -311,5 +312,10 @@ def logout():
     return redirect(url_for('login'))
 
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="8082",debug=True)
+import os
+
+if __name__ == "__main__":
+    host = os.getenv('FLASK_RUN_HOST', '127.0.0.1')  # Default to localhost
+    port = int(os.getenv('FLASK_RUN_PORT', 8080))  # Default to port 8080
+    app.run(host=host, port=port, debug=False)
+
