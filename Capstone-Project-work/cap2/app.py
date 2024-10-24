@@ -314,6 +314,6 @@ def logout():
 import os
 
 if __name__ == "__main__":
-    host = os.getenv('FLASK_RUN_HOST', '127.0.0.1')  # Default to localhost
+    host = os.getenv('FLASK_RUN_HOST', '127.0.0.1')  # Defaultt to localhost
     port = int(os.getenv('FLASK_RUN_PORT', 8080))  # Default to port 8080
     app.run(host=host, port=port, debug=False)
