@@ -279,7 +279,7 @@ def checkinout():
         status = request.form['status']
 
         result = check_status(studentid)
-        if result is not None:
+        if isinstance(result, tuple):
             current_status, previous_time = result
         else:
             current_status, previous_time = None, None
@@ -295,7 +295,6 @@ def checkinout():
             flash(f'You successfully {new_status} at {current_time}', 'success')
     
     return render_template('checkinout.html')
-
 
 # Route for Tournament Schedule page
 @app.route('/tournament')
@@ -318,4 +317,3 @@ if __name__ == "__main__":
     host = os.getenv('FLASK_RUN_HOST', '127.0.0.1')  # Default to localhost
     port = int(os.getenv('FLASK_RUN_PORT', 8080))  # Default to port 8080
     app.run(host=host, port=port, debug=False)
-
