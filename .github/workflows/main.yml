@@ -20,6 +20,27 @@ jobs:
                 exit 0
               fi
               echo "Changes detected in Capstone-Project-work, proceeding with build."
+          - name: set up python
+            uses: actions/setup-python@v5.2.0
+            with: 
+             python-version: 3.8
+
+
+          - name: install bandit
+            run: pip install bandit
+
+
+        #TEST STAGE
+          - name: run the bandit scan - static code analysis
+            run: bandit -ll -ii -r . -f json -o bandit-report.json
+
+          - name: uploading the artifact
+            uses: actions/upload-artifact@v4.4.3
+            if: always()
+            with:
+              name: bandit-findings
+              path: bandit-report.json
+        #############################################################
 
           -
             name: Set up QEMU
