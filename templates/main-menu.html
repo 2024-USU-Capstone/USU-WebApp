@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USU Activity Center</title>
+    <style>
+        .usu-logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 100px;
+            height: auto;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0f7fa; /* Light blue background */
+            font-family: Arial, sans-serif;
+            background-image: url('static/images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* Added to position logout button */
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #0078CC;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 200px;
+            padding: 15px;
+            margin: 15px;
+            font-size: 18px;
+            background-color: #0078CC;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #005FA3;
+            transform: translateY(-2px);
+        }
+
+        /* Logout Button Styling */
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #192cdb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #3633ff;
+        }
+
+        /* Clock Styling */
+        .clock {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: #ffffff; /* Consistent color */
+            z-index: 1000;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+            .btn {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logout Button -->
+    <a href="/logout" class="btn logout-button">Logout</a>
+
+    <!-- Digital Clock -->
+    <div id="clock" class="clock"></div>
+
+    <div class="container">
+        <h1>USU Activity Center</h1>
+        <a href="/checkinout" class="btn">Check In/Out</a>
+        <a href="/tournament" class="btn">Tournament Schedule</a>
+    </div>
+    
+    <!-- USU Logo in the bottom right corner -->
+    <img src="/static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">
+
+    <!-- Clock Script -->
+    <script>
+        function updateClock() {
+            const clockElement = document.getElementById('clock');
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            // Format hours
+            hours = hours % 12;
+            hours = hours ? hours : 12; // If hour is 0, change to 12
+            const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+            const secondsStr = seconds < 10 ? '0' + seconds : seconds;
+    
+            // Create the time string
+            const timeString = `${hours}:${minutesStr}:${secondsStr} ${ampm}`;
+            clockElement.textContent = timeString;
+        }
+    
+        setInterval(updateClock, 1000); // Update every second
+        updateClock(); // Initialize clock immediately
+    </script>
+    
+</body>
+</html>
