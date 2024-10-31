@@ -1,0 +1,16 @@
+[
+  {
+    "id": "pool 1",
+    "name": "pool tournament",
+    "date": "2024-11-08",
+    "time": "14:17",
+    "location": "room 2"
+  },
+  {
+    "id": "Chess 1",
+    "name": "Chess Tournament",
+    "date": "2024-11-09",
+    "time": "15:17",
+    "location": "room1"
+  }
+]
