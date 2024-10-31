@@ -6,11 +6,11 @@
     <title>USU Activity Center</title>
     <style>
         .usu-logo {
-            position: absolute; /* Position the image relative to the page */
-            bottom: 10px; /* Distance from the bottom */
-            right: 10px; /* Distance from the right */
-            width: 100px; /* Adjust the size as needed */
-            height: auto; /* Maintain the aspect ratio */
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 100px;
+            height: auto;
         }
 
         body {
@@ -19,21 +19,26 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #3e91cc; /* Changed to solid color */
+            background-color: #e0f7fa; /* Light blue background */
             font-family: Arial, sans-serif;
+            background-image: url('static/images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.9); /* Subtle white overlay */
+            background: rgba(255, 255, 255, 0.9);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative; /* Added to position logout button */
         }
 
         h1 {
             font-size: 36px;
-            color: #333;
+            color: #0078CC;
             margin-bottom: 30px;
         }
 
@@ -61,8 +66,8 @@
         /* Logout Button Styling */
         .logout-button {
             position: absolute;
-            top: 20px; /* Adjust this value to move it vertically */
-            right: 20px; /* Adjust this value to move it horizontally */
+            top: 20px;
+            right: 20px;
             background-color: #192cdb;
             color: white;
             border: none;
@@ -78,7 +83,19 @@
             background-color: #3633ff;
         }
 
-        /* Responsive adjustments for smaller screens */
+        /* Clock Styling */
+        .clock {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: #ffffff; /* Consistent color */
+            z-index: 1000;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 600px) {
             .container {
                 width: 90%;
@@ -87,18 +104,6 @@
                 width: 100%;
                 margin: 10px 0;
             }
-        }
-
-        /* Clock Styling */
-        .clock {
-            position: absolute;
-            top: 100px; /* Moved the clock lower */
-            left: 775px;
-            transform: translateX(-50%);
-            font-size: 48px; /* Bigger font size */
-            font-weight: bold;
-            color: white;
-            z-index: 1000;
         }
     </style>
 </head>
@@ -138,10 +143,6 @@
             // Create the time string
             const timeString = `${hours}:${minutesStr}:${secondsStr} ${ampm}`;
             clockElement.textContent = timeString;
-    
-            // Generate a random color
-            const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
-            clockElement.style.color = randomColor; // Change the clock color
         }
     
         setInterval(updateClock, 1000); // Update every second
