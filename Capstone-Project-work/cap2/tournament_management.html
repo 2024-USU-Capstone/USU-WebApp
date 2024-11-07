@@ -114,9 +114,9 @@
             border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
-            position: absolute; /* Positioning it absolutely */
-            top: 10px; /* Distance from the top */
-            left: 10px; /* Distance from the left */
+            position: absolute; 
+            top: 10px; 
+            left: 10px; 
             font-size: 16px;
             transition: background-color 0.3s;
         }
@@ -125,6 +125,31 @@
             background-color: #0b7dda;
         }
     </style>
+    <script>
+        
+        function setMinDate() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('date').setAttribute('min', formattedDate);
+        }
+
+        // Function to validate date and time
+        function validateDateTime() {
+            const dateInput = document.getElementById('date').value;
+            const timeInput = document.getElementById('time').value;
+            const selectedDateTime = new Date(`${dateInput}T${timeInput}`);
+            const now = new Date();
+
+            if (selectedDateTime <= now) {
+                alert('Please select a future date and time.');
+                return false; 
+            }
+            return true; 
+        }
+
+        
+        window.onload = setMinDate;
+    </script>
 </head>
 <body>
     <div class="management-container">
@@ -133,7 +158,7 @@
         <h2>Tournament Management</h2>
         
         <!-- Add Tournament Form -->
-        <form action="{{ url_for('add_tournament_route') }}" method="POST">
+        <form action="{{ url_for('add_tournament_route') }}" method="POST" onsubmit="return validateDateTime()">
             <div class="form-group">
                 <label for="tournament_id">Tournament ID:</label>
                 <input type="text" id="tournament_id" name="tournament_id" required>
@@ -194,12 +219,6 @@
         </table>
     </div>
     <img src="{{ url_for('static', filename='images/USU_Logo.png') }}" alt="USU Logo" class="usu-logo">
-</body>
-</html>
-
-    <a href="/tournament" class="btn logout-button">
-        <img src="/static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">
-    </a>
     <footer>
         USU Check-In/Out Application
     </footer>
