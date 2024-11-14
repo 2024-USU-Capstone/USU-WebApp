@@ -114,9 +114,9 @@
             border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
-            position: absolute; 
-            top: 10px; 
-            left: 10px; 
+            position: absolute; /* Positioning it absolutely */
+            top: 10px; /* Distance from the top */
+            left: 10px; /* Distance from the left */
             font-size: 16px;
             transition: background-color 0.3s;
         }
@@ -126,7 +126,7 @@
         }
     </style>
     <script>
-        
+        // Function to set the minimum date to today
         function setMinDate() {
             const today = new Date();
             const formattedDate = today.toISOString().split('T')[0];
@@ -142,12 +142,12 @@
 
             if (selectedDateTime <= now) {
                 alert('Please select a future date and time.');
-                return false; 
+                return false; // Prevent form submission
             }
-            return true; 
+            return true; // Allow form submission
         }
 
-        
+        // Call setMinDate when the page loads
         window.onload = setMinDate;
     </script>
 </head>
