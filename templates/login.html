@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - USU's Activity Center</title>
+    <style>
+
+        .usu-logo {
+        position: absolute; /* Position the image relative to the page */
+        bottom: 10px; /* Distance from the bottom */
+        right: 10px; /* Distance from the right */
+        width: 100px; /* Adjust the size as needed */
+        height: auto; /* Maintain the aspect ratio */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0f7fa; /* Light blue background */
+            font-family: Arial, sans-serif;
+
+            /* Set the background image */
+            background-image: url('static/images/bg.jpg');
+            background-size: cover;  /* Ensures the image covers the entire page */
+            background-position: center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+        }
+
+        .login-container {
+            width: 400px; /* Increased the width of the container */
+            padding: 30px; /* Increased padding for more space */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px; /* Increased font size of the title */
+            margin-bottom: 30px;
+            color: #0078CC; 
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+            font-size: 20px; /* Increased label font size */
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 15px; /* Increased padding inside the input */
+            font-size: 18px; /* Larger text inside input */
+            margin-bottom: 20px;
+            border: 2px solid #ccc; /* Increased border thickness */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px; /* Increased button size */
+            background-color: #0078CC;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px; /* Larger text for the button */
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #3700b3;
+        }
+        .flash-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash-message.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .flash-message.warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .flash-message.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>USU Activity Center</h1>
+        
+        <!-- Display flash messages -->
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul id="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash-message {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+
+        <form method="POST" action="/">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="password" required>
+            
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+
+    <!-- USU Logo in the bottom right corner -->
+    <img src="/static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">
+
+</body>
+</html>

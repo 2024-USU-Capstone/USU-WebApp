@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Bracket</title>
+    <link rel="stylesheet" href="/static/styles/tournament.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <body>
+    <div>
+        <select id="tournament-select">
+    <option value="">-- Select a Tournament --</option>
+    {% for tournament in tournaments %}
+        <option value="{{ tournament.id }}">{{tournament.id}}, {{ tournament.name }}</option>
+    {% endfor %}
+</select>
+    </div>
+    <div class="bracket" id="bracket"></div>
+    <script src="/static/scripts/tournament_bracket.js"></script>
+</body>
+</html>

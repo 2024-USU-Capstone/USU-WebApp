@@ -1,0 +1,140 @@
+
+.usu-logo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
+    height: auto;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    
+    background-size: cover;
+    background-position: center;
+    background-color: #2b2a33;
+}
+
+.registration-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    background-color: #fff;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+}
+
+/* Container styling */
+.registration-container {
+    background-color: #f9f9f9; /* Light background for the container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #eaeaea; /* Slightly darker background than the container */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table headers styling */
+thead {
+    background-color: #d4d4d4; /* Light gray header */
+}
+
+th {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Table rows styling */
+tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+td {
+    padding: 12px;
+    text-align: left;
+    color: #333;
+}
+
+/* Hover effect on table rows */
+tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Styling for empty table row message */
+tbody tr td {
+    text-align: left;
+    font-style: italic;
+    color: #555;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px; /* Adds space above the table */
+    margin-bottom: 15px; /* Adds space below the heading */
+    text-align: center;
+}

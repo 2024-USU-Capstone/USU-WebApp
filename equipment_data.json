@@ -1,0 +1,297 @@
+[
+    {
+        "name": "Assassins Creed IV Black Flag",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Battlefield 1",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Battlefield 4",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Call of Duty Ghosts",
+        "console": "Xbox",
+        "available": false
+    },
+    {
+        "name": "Call of Duty Modern Warfare",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Call of Duty Vanguard",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Call of Duty WW1",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Dead Rising 3",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Destiny 2",
+        "console": "Xbox",
+        "available": false
+    },
+    {
+        "name": "FIFA 22",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Forza Motorsport 5",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Halo 5",
+        "console": "Xbox",
+        "available": false
+    },
+    {
+        "name": "Halo Reach",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Halo Master Chief Collection",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Halo Infinite",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Injustice 2",
+        "console": "Xbox",
+        "available": false
+    },
+    {
+        "name": "Madden NFL 22",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Minecraft",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Mortal Kombat 11",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Mortal Kombat XL",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Naruto Shippuden: Ultimate Ninja Storm 4 ROAD TO BORUTO",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "NBA 2K22",
+        "console": "Xbox",
+        "available": false
+    },
+    {
+        "name": "Overwatch Origins Edition",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Rocket League",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Tekken 7",
+        "console": "Xbox",
+        "available": true
+    },
+    {
+        "name": "Tom Clancy's Rainbow 6 Siege",
+        "console": "Xbox",
+        "available": false
+    },
+    {
+        "name": "Battlefield 1",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Battlefield 4",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Call of Duty Ghosts",
+        "console": "PlayStation",
+        "available": false
+    },
+    {
+        "name": "Call of Duty WW2",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Call of Duty Modern Warfare",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Destiny 2",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Injustice 2",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Madden 20",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Madden 22",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Naruto Shippuden: Ultimate Ninja Storm 4 ROAD TO BORUTO",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Need for Speed Rivals",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Rainbow 6 Siege",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Street Fighter V",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Mortal Kombat XL",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Rocket League Collectors Edition",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Tekken 7",
+        "console": "PlayStation",
+        "available": false
+    },
+    {
+        "name": "Spider-man",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Mortal Kombat 11",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "NBA 2K22",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "The Last of Us Remastered",
+        "console": "PlayStation",
+        "available": false
+    },
+    {
+        "name": "Soulcalibur VI",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "FIFA 22",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "FIFA 24",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Overwatch",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "God of War",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Dead by Daylight",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Plants vs Zombies: Garden Warfare 2",
+        "console": "PlayStation",
+        "available": true
+    },
+    {
+        "name": "Mario Party Super Stars",
+        "console": "Switch",
+        "available": true
+    },
+    {
+        "name": "Super Smash Bros Ultimate",
+        "console": "Switch",
+        "available": true
+    },
+    {
+        "name": "New Super Mario Bros. U Deluxe",
+        "console": "Switch",
+        "available": true
+    },
+    {
+        "name": "Mario Kart 8 Deluxe",
+        "console": "Switch",
+        "available": true
+    },
+    {
+        "name": "Taiko no Tatsujin Nintendo Switch Version",
+        "console": "Switch",
+        "available": true
+    },
+    {
+        "name": "Overcooked 2",
+        "console": "Switch",
+        "available": true
+    }
+]

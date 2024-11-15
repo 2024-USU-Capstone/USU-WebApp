@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .filter-container {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Equipment List</h1>
+
+        <!-- Filter Dropdown -->
+        <div class="filter-container">
+            <select id="availabilityFilter" class="form-control w-25">
+                <option value="all">All</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+            </select>
+        </div>
+
+        <!-- Tabs for different consoles -->
+        <ul class="nav nav-tabs" id="consoleTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="xbox-tab" data-toggle="tab" href="#xbox" role="tab" aria-controls="xbox" aria-selected="true">Xbox</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="playstation-tab" data-toggle="tab" href="#playstation" role="tab" aria-controls="playstation" aria-selected="false">PlayStation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="switch-tab" data-toggle="tab" href="#switch" role="tab" aria-controls="switch" aria-selected="false">Switch</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="consoleTabsContent">
+            <!-- Xbox Table -->
+            <div class="tab-pane fade show active" id="xbox" role="tabpanel" aria-labelledby="xbox-tab">
+                <table class="table table-bordered mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody id="xbox-equipment-list">
+                        {% for item in equipment_data if item.console == 'Xbox' %}
+                            <tr data-availability="{{ 'available' if item.available else 'unavailable' }}">
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.available %}
+                                        <span class="text-success">&#10004; Available</span>
+                                    {% else %}
+                                        <span class="text-danger">&#10006; Unavailable</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PlayStation Table -->
+            <div class="tab-pane fade" id="playstation" role="tabpanel" aria-labelledby="playstation-tab">
+                <table class="table table-bordered mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody id="playstation-equipment-list">
+                        {% for item in equipment_data if item.console == 'PlayStation' %}
+                            <tr data-availability="{{ 'available' if item.available else 'unavailable' }}">
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.available %}
+                                        <span class="text-success">&#10004; Available</span>
+                                    {% else %}
+                                        <span class="text-danger">&#10006; Unavailable</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Switch Table -->
+            <div class="tab-pane fade" id="switch" role="tabpanel" aria-labelledby="switch-tab">
+                <table class="table table-bordered mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody id="switch-equipment-list">
+                        {% for item in equipment_data if item.console == 'Switch' %}
+                            <tr data-availability="{{ 'available' if item.available else 'unavailable' }}">
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.available %}
+                                        <span class="text-success">&#10004; Available</span>
+                                    {% else %}
+                                        <span class="text-danger">&#10006; Unavailable</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Filter Script -->
+    <script>
+        document.getElementById('availabilityFilter').addEventListener('change', function() {
+            const filter = this.value;
+            const tables = ['xbox-equipment-list', 'playstation-equipment-list', 'switch-equipment-list'];
+
+            tables.forEach(tableId => {
+                const rows = document.querySelectorAll(`#${tableId} tr`);
+                rows.forEach(row => {
+                    const availability = row.getAttribute('data-availability');
+                    if (filter === 'all' || filter === availability) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

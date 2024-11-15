@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Registration</title>
+    <link rel="stylesheet" href="/static/styles/tournament_register.css">
+    <link rel="stylesheet" href="/static/styles/tournament_global.css">
+</head>
+<body>
+    <div class="registration-container">
+        <a href="/tournament/management" class="back-button">Back</a>
+
+        <h2>Tournament Registration</h2>
+        <form action="/tournament/register?tournament_id={{ request.args.get('tournament_id') }}" method="POST">
+            <div class="form-group">
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentid">Student ID:</label>
+                <input type="text" id="studentid" name="studentid" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tournament">Select Tournament:</label>
+                <select id="tournament" name="tournament_id" required onchange="redirectToRegister(this.value)">
+                {% for tournament in tournaments %}
+                    <option value="{{ tournament.id }}" 
+                            {% if tournament.id == request.args.get('tournament_id')|int %}
+                                selected
+                            {% endif %}
+                        >
+                    {{ tournament.name }} - {{ tournament.date }}
+                    </option>
+                {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="submit-button">Register</button>
+        </form>
+        <hr class="subtle-line">
+        <h3>Current Participants</h3>
+        <table class="registration-container">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Team</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if students %}
+                    {% for student in students %}
+                        {% if student.tournament_id == request.args.get('tournament_id')|int %}
+                            <tr>
+                                <td>{{ student.student_id }}</td>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.team_name if student.team_name else 'N/A' }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">No participants registered yet.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/tournament" class="btn logout-button">
+        <img src="/static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">
+    </a>
+    <footer>
+        USU Check-In/Out Application
+    </footer>
+    <script src="/static/scripts/tournament_management.js"></script>
+</body>
+</html>
