@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import mysql.connector
 from functools import wraps
 from equipment import load_equipment_data, save_equipment_data, initial_data
+from tournament_data import load_tournaments, save_tournaments, add_tournament, delete_tournament
 
 app = Flask(__name__)
 app.secret_key = '!@#$%^&*(jhdshgsd'  # Required for flash messages
@@ -297,10 +298,68 @@ def checkinout():
     return render_template('checkinout.html')
 
 # Route for Tournament Schedule page
+
 @app.route('/tournament')
-@login_required  # Restrict access to this page unless the user is logged in
+@login_required
 def tournament():
-    return render_template('tournament.html')
+    tournaments = load_tournaments()
+    return render_template('tournament.html', tournaments=tournaments)
+
+@app.route('/tournament/register', methods=['GET', 'POST'])
+@login_required
+def tournament_register():
+    if request.method == 'POST':
+        # Process the registration form
+        fname = request.form['fname']
+        lname = request.form['lname']
+        studentid = request.form['studentid']
+        tournament_id = request.form['tournament_id']
+        # Here you would typically save this to a database
+        flash('Registration successful!', 'success')
+        return redirect(url_for('tournament'))
+    tournaments = load_tournaments()
+    return render_template('tournament_register.html', tournaments=tournaments)
+
+@app.route('/tournament/management')
+@login_required
+def tournament_management():
+    tournaments = load_tournaments()
+    return render_template('tournament_management.html', tournaments=tournaments)
+
+@app.route('/add_tournament', methods=['POST'])
+@login_required
+def add_tournament_route():
+    tournament_id = request.form['tournament_id']
+    name = request.form['tournament_name']
+    date = request.form['date']
+    time = request.form['time']
+    location = request.form['location']
+    
+    new_tournament = {
+        'id': tournament_id,
+        'name': name,
+        'date': date,
+        'time': time,
+        'location': location
+    }
+    add_tournament(new_tournament)
+    flash('Tournament added successfully!', 'success')
+    return redirect(url_for('tournament_management'))
+
+@app.route('/delete_tournament/<tournament_id>', methods=['POST'])
+@login_required
+def delete_tournament_route(tournament_id):
+    delete_tournament(tournament_id)
+    flash('Tournament deleted successfully!', 'success')
+    return redirect(url_for('tournament_management'))
+
+
+
+
+
+
+
+
 
 ## Logout route
 @app.route('/logout')
