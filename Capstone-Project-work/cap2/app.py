@@ -7,6 +7,15 @@ import mysql.connector
 from functools import wraps
 from equipment import load_equipment_data, save_equipment_data, initial_data
 from db_utils import *
+from dotenv import load_dotenv
+import logging
+# Configure the logging
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level (DEBUG for detailed information)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Log format
+)
+
+logger = logging.getLogger(__name__)  # Get a logger for this module
 app = Flask(__name__)
 app.secret_key = '!@#$%^&*(jhdshgsd'  # Required for flash messages
 
@@ -14,7 +23,7 @@ app.secret_key = '!@#$%^&*(jhdshgsd'  # Required for flash messages
 
 
 ##---------- WE NEED THIS FOR SETTING ENVIRONMENT----------
-
+load_dotenv() #this loads environment variables from .env file. If not file exists this does nothing.
 MYSQL_HOST = os.environ.get('MYSQL_HOST')
 MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE')
 MYSQL_USER = os.environ.get('MYSQL_USER')
@@ -22,27 +31,16 @@ MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
 MYSQL_PORT = os.environ.get('MYSQL_PORT')
 
 ##-----------------------------------------------------------
-'''
-##DATABSE CONNECTION 
-mydb= mysql.connector.connect(
-    host="127.0.0.1",
-    database="",  # Use your database name
-    user="root",                 # Use your database username
-    password='',
-    port=3306
-    )
-'''
 
 mydb= mysql.connector.connect(
-    host="127.0.0.1",
-    database="mydatabase",  # Use your database name
-    user="root",                 # Use your database username
-    password="root",
-    port=3306
+    host=MYSQL_HOST, 
+    database=MYSQL_DATABASE,  
+    user=MYSQL_USER,                 
+    password=MYSQL_PASSWORD,
+    port=MYSQL_PORT
     )
 
 
-##THIS IS TO CHECK THE DATABSE TABLE
 def table_check(fname, lname, studentid, equip, status):
     try:
         # Establishing a database connection
@@ -298,6 +296,7 @@ def checkinout():
     
     return render_template('checkinout.html')
 
+
 ## Logout route
 @app.route('/logout')
 @login_required  # Protect this route
@@ -310,11 +309,20 @@ def logout():
 #### TOURNAMENT MANAGEMENT ####
 ################################
 
+@app.route('/tournament')
+@login_required
+def tournament():
+    return render_template('tournament_management.html', tournaments=load_tournaments(mydb))
+
 @app.route('/tournament/bracket', methods=['GET'])
 @login_required
 def tournament_bracket():
     tournaments = load_tournaments(mydb)
-    return render_template('tournament_bracket.html', tournaments=tournaments)
+    tournament_id = request.args.get('tournament_id')
+    logger.debug("HELLO!\n")
+    logger.debug(tournament_id)
+    logger.debug("\n")
+    return render_template('tournament_bracket.html', tournaments=tournaments, tournament_id=tournament_id)
 
 @app.route('/tournament/register', methods=['GET', 'POST'])
 @login_required
@@ -325,7 +333,7 @@ def tournament_register():
             'lname': request.form['lname'],
             'studentid': request.form['studentid'],
             'tournament_id': request.form['tournament_id'],
-            'team_name': request.form.get('team_name') if request.form.get('team_name') else None #Use .get on .form if value may be null
+            'team_name': request.form.get('team_name') if request.form.get('team_name') else None #Use .get() on request.form if value may be null
 
         }) 
         flash('Registration successful!', 'success')
@@ -368,6 +376,15 @@ def create_single_elimination_bracket():
     response1 = create_bracket_single_elim(mydb, tournament_id)
     return {"message": "Single elimination bracket created successfully.", "matches": response1, "status":200}
 
+@app.route('/select_winner', methods=['POST'])
+@login_required
+def select_winner():
+    tournament_id = request.args.get('tournament_id')
+    selectwinner(mydb, tournament_id, request.get_json())
+    
+    return redirect(f'/tournament/bracket?tournament_id={tournament_id}')
+    #pass
+
 
 @app.route('/api/get_matches')
 @login_required
@@ -377,15 +394,3 @@ def get_matches():
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="8082",debug=True)
-
-
-
-
-
-
-
-
-    #Control access to internal use of api points because of student data use: authentication/auth, rate limiting?
-    #cursor.execute("SELECT * FROM Tournament_participants JOIN Tournaments ON Tournament_participants.tournament_id = Tournaments.tournament_id WHERE Tournaments.tournament_start <= CURRENT_DATE and Tournaments.tournament_end >= CURRENT_DATE;")
-    # Assuming data is a list of tuples, convert it to a list of dictionaries
-    #how to add formatting to these sql statements to add readability?

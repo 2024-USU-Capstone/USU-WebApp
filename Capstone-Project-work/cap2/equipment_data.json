@@ -17,7 +17,7 @@
     {
         "name": "Call of Duty Ghosts",
         "console": "Xbox",
-        "available": false
+        "available": true
     },
     {
         "name": "Call of Duty Modern Warfare",
@@ -42,7 +42,7 @@
     {
         "name": "Destiny 2",
         "console": "Xbox",
-        "available": false
+        "available": true
     },
     {
         "name": "FIFA 22",
@@ -57,7 +57,7 @@
     {
         "name": "Halo 5",
         "console": "Xbox",
-        "available": false
+        "available": true
     },
     {
         "name": "Halo Reach",
@@ -77,7 +77,7 @@
     {
         "name": "Injustice 2",
         "console": "Xbox",
-        "available": false
+        "available": true
     },
     {
         "name": "Madden NFL 22",
@@ -107,7 +107,7 @@
     {
         "name": "NBA 2K22",
         "console": "Xbox",
-        "available": false
+        "available": true
     },
     {
         "name": "Overwatch Origins Edition",
@@ -127,7 +127,7 @@
     {
         "name": "Tom Clancy's Rainbow 6 Siege",
         "console": "Xbox",
-        "available": false
+        "available": true
     },
     {
         "name": "Battlefield 1",
@@ -142,7 +142,7 @@
     {
         "name": "Call of Duty Ghosts",
         "console": "PlayStation",
-        "available": false
+        "available": true
     },
     {
         "name": "Call of Duty WW2",
@@ -207,7 +207,7 @@
     {
         "name": "Tekken 7",
         "console": "PlayStation",
-        "available": false
+        "available": true
     },
     {
         "name": "Spider-man",
@@ -227,7 +227,7 @@
     {
         "name": "The Last of Us Remastered",
         "console": "PlayStation",
-        "available": false
+        "available": true
     },
     {
         "name": "Soulcalibur VI",

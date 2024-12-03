@@ -7,6 +7,15 @@ from datetime import datetime
 # Get the directory where the script is located
 #SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 #JSON_FILE = os.path.join(SCRIPT_DIR, 'tournaments.json')
+import logging
+
+# Configure the logging
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level (DEBUG for detailed information)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Log format
+)
+
+logger = logging.getLogger(__name__)  # Get a logger for this module
 
 def load_tournaments(mydb):    #converts to 12hr format
     cursor = mydb.cursor()
@@ -41,9 +50,12 @@ def load_tournament_students(mydb):
     
 def insert_team(mydb, student):
     cursor = mydb.cursor()
-    cursor.execute("SELECT team_id FROM Teams WHERE team_name = %s", (student['team_name'],))
-    team = cursor.fetchone()
-    
+    cursor.execute("SELECT t.team_id FROM Teams t JOIN Team_members tm ON t.team_id = tm.team_id WHERE t.team_id = %s AND tm.student_id = %s", 
+    (student['team_id'], student['studentid']))
+    team = cursor.fetchall()
+    logger.debug("team==")
+    logger.debug(team)
+    logger.debug("\n")
     if team:
         team_id = team[0]
     else:
@@ -51,21 +63,35 @@ def insert_team(mydb, student):
         mydb.commit()
         team_id = cursor.lastrowid
     
-    cursor.execute("INSERT INTO Team_members (student_id, team_id) VALUES (%s, %s)", 
-                   (student['studentid'], team_id))
-    mydb.commit()
-    
+    cursor.execute("SELECT * FROM Team_members tm  WHERE tm.student_id = %s AND tm.team_id = %s", (student["studentid"], team_id))
+    student_in_team = cursor.fetchall()
+    logger.debug("Student_in_team==")
+    logger.debug(student_in_team)
+    logger.debug("\n")
+    logger.debug("team_id==")
+    logger.debug(team_id)
+    logger.debug("\n")
+    logger.debug("studentid==")
+    logger.debug(student["studentid"])
+    logger.debug("\n")
+    if len(student_in_team) == 0:
+        cursor.execute("INSERT INTO Team_members (student_id, team_id) VALUES (%s, %s)", (student['studentid'], team_id))
+        mydb.commit()
+
     cursor.close()
     return team_id
 
 
 def register_student(mydb, student):
     cursor = mydb.cursor()
-    insert_student = "INSERT INTO Students (student_id, fname, lname, last_checked_out) VALUES (%s, %s, %s, NOW())"
-    cursor.execute(insert_student, (student['studentid'], student['fname'], student['lname']))
-    mydb.commit()
     
-    team_id = insert_team(mydb, student)
+    cursor.execute("SELECT * FROM Students WHERE student_id = %s", (student['studentid'],))
+    existing_student = cursor.fetchone();
+    if not existing_student:
+        insert_student = "INSERT INTO Students (student_id, fname, lname, last_checked_out) VALUES (%s, %s, %s, NOW())"
+        cursor.execute(insert_student, (student['studentid'], student['fname'], student['lname']))
+        mydb.commit()    
+    team_id = insert_team(mydb, student) #See insert_team function above
     
     insert_tournament_team = "INSERT INTO Tournament_teams (tournament_id, team_id) VALUES (%s, %s)"
     cursor.execute(insert_tournament_team, (student['tournament_id'], team_id))
@@ -195,6 +221,25 @@ def create_bracket_single_elim(mydb, tournament_id):
         print(f"Error inserting matches: {e}")
         mydb.rollback()  # Rollback if there was an error
         return None  # Return None to indicate failure
+
+def selectwinner(mydb, tournament_id, match_data):
+    cursor = mydb.cursor() 
+    update_query = """
+    UPDATE Matches
+    SET
+        player_a_score = %s,
+        player_b_score = %s,
+        match_winner = %s
+    WHERE
+        match_id = %s AND tournament_id = %s
+    """
+    score_a = match_data['score_a']
+    score_b = match_data['score_b']
+    winner_id = match_data['winner_id']
+    match_id = match_data['match_id']
+    cursor.execute(update_query, (score_a, score_b, winner_id, match_id, tournament_id))
+    mydb.commit()
+    return
 
 def create_bracket_round_robin():
     pass

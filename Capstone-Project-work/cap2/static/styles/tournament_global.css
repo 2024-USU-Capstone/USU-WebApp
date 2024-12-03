@@ -20,3 +20,18 @@ select {
 .back-button:hover {
     background-color: #0b7dda;
 }
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1e2124; /* Add subtle blue motifs */
+    opacity: .1; /* Very subtle */
+    background-size: cover; /* Cover the entire screen */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image */
+    z-index: -1; /* Behind all content */
+}

@@ -11,10 +11,55 @@
 <body>
     <div class="management-container silver-shine">
         <a href="/mainmenu" class="back-button">Back</a>
-        
+        <!-- Tournament List -->
+        <h2>Current Tournaments</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Bracket</th>
+                    <th>Register</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if tournaments %}
+                {% for tournament in tournaments %}
+                <tr>
+                    <td>{{ tournament.name }}</td>
+                    <td>{{ tournament.date }}</td>
+                    <td>{{ tournament.start_time }}</td>
+                    <td>{{ tournament.end_time }}</td>
+                    <td>{{ tournament.type }}</td>
+                    <td>{{ tournament.id }}</td>
+                    <td>
+                            <button type="submit" class="action-btn start-btn" onclick="redirectToBracket({{ tournament.id }})">View</button>
+                        
+                    </td>
+                    <td>
+                        <button type="submit" class="action-btn start-btn" onclick="redirectToRegister({{ tournament.id }})">Register</button>
+                    </td>
+                    <td>
+                        <form action="/remove_tournament/{{ tournament.id }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this tournament?');">
+                            <button type="submit" class="action-btn delete-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <hr class="subtle-line">
+
         <h2>Tournament Management</h2>
         <!-- Add Tournament Form -->
-        <form action="/tournament/add_tournament" method="POST">
+        <button id="displayFormButton" class="submit-button" onclick="toggleForm()">Add Tournament</button>
+        <form id="addTournamentForm" action="/tournament/add_tournament" method="POST">
             <div class="form-group">
                 <label for="tournament_name">Tournament Name:</label>
                 <input type="text" id="tournament_name" name="tournament_name" required>
@@ -54,50 +99,8 @@
             </div>
             <button type="submit" class="submit-button">Add Tournament</button>
         </form>
-        <hr class="subtle-line">
-        <!-- Tournament List -->
-        <h3>Current Tournaments</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Type</th>
-                    <th>Location</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if tournaments %}
-                    {% for tournament in tournaments %}
-                    <tr onclick="redirectToRegister({{ tournament.id }})">
-                        <td>{{ tournament.name }}</td>
-                        <td>{{ tournament.date }}</td>
-                        <td>{{ tournament.start_time }}</td>
-                        <td>{{ tournament.end_time }}</td>
-                        <td>{{ tournament.type }}</td>
-                        <td>{{ tournament.location }}</td>
-                        <td>
-                            {% if tournament.matches | length == 0 %}
-                                <form action="/create_{{ tournament.type | lower | replace(' ', '_') }}_bracket?tournament_id={{ tournament.id }}"  method="POST">
-                                    <button type="submit" class="action-btn start-btn">Start</button>
-                                </form>
-                            {% else %}
-                                <form action="/reset_matches/{{ tournament.id }}" method="POST">
-                                    <button type="submit" class="action-btn reset-btn">Reset</button>
-                                </form>
-                            {% endif %}
-                            <form action="/remove_tournament/{{ tournament.id }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this tournament?');">
-                                <button type="submit" class="action-btn delete-btn">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
+
+
     </div>
     <a href="/tournament" class="btn logout-button">
         <img src="/static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">

@@ -16,7 +16,7 @@ body {
     background-image: url("{{ url_for('static', filename='images/to.png') }}");
     background-size: cover;
     background-position: center;
-    background-color: #2b2a33;
+    background-color: #fff;
 }
 
 .management-container {
@@ -29,8 +29,13 @@ body {
     margin: 22px;
 }
 
+#addTournamentForm {
+   display: none;
+}
+
 .form-group {
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .team_inputs {
@@ -54,17 +59,16 @@ h3 {
     border: none;          /* Remove default border */
     height: 1px;          /* Set height of the line */
     background-color: rgba(0, 0, 0, 0.1); /* Light color for subtle effect */
-    margin: 20px 0;      /* Space around the line */
+    margin: 40px 0;      /* Space around the line */
 }
 
 tbody tr:hover {
-    background: #c1c1c1;
+    background: #e1e1e1;
 
 }
 
 tbody tr {
     transition: background-color 0.1s ease;
-    cursor: pointer;
 }
 
 input, select {
