@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment List</title>
+    <style>
+    .usu-logo {
+        position: absolute; /* Position the image relative to the page */
+        bottom: 10px; /* Distance from the bottom */
+        right: 10px; /* Distance from the right */
+        width: 100px; /* Adjust the size as needed */
+        height: auto; /* Maintain the aspect ratio */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0f7fa; /* Light blue background */
+            font-family: Arial, sans-serif;
+
+            /* Set the background image */
+            /*background-image: url('static/images/bg.jpg');
+            background-size: cover;  /* Ensures the image covers the entire page 
+            background-position: center; /* Centers the background image 
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+        }
+
+
+    </style>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>Equipment Log</h1>
+
+        <!-- Equipment Log Table -->
+        <table class="table table-bordered" id="equipmentTable">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Student ID</th>
+                    <th>Equipment</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if rows %}
+                <!-- Iterate over rows passed from Flask -->
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ row[0] }}</td> <!-- first_name -->
+                            <td>{{ row[1] }}</td> <!-- last_name -->
+                            <td>{{ row[2] }}</td> <!-- student_id -->
+                            <td>{{ row[3] }}</td> <!-- equipment -->
+                            <td>
+                                <span style="color: {% if row[4] == 'check-out' %}red{% elif row[4] == 'check-in' %}green{% else %}black{% endif %};">
+                                    {{ row[4] }}
+                                </span>
+                            </td> <!-- status with conditional color -->
+                            <td>{{ row[5] }}</td> <!-- timestamp -->
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <!-- Show message when no rows are available -->
+                    <tr>
+                        <td colspan="6" class="text-center">No data available</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        <nav>
+            <ul class="pagination">
+                {% if page > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('activity', page=page-1) }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                
+                {% for p in range(1, total_pages + 1) %}
+                    <li class="page-item {% if p == page %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('activity', page=p) }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+                
+                {% if page < total_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('activity', page=page+1) }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <!-- DataTables JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#equipmentTable').DataTable({
+                "order": [[5, "asc"]]  // Sort by the Timestamp column in ascending order
+            });
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- USU Logo in the bottom right corner -->
+    <a href="/checkinout" class="btn logout-button">
+        <img src="/static/images/USU_Logo.png" alt="USU Logo" class="usu-logo">
+    </a>
+</body>
+</html>
+
