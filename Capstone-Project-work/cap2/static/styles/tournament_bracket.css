@@ -3,7 +3,8 @@ html {
 }
 body {
     font-family: 'Roboto', sans-serif; /* Modern sans-serif font */
-    height : 100%;
+
+    min-height: 100%;
     margin: 0;
     background-color: #fff;
 }
@@ -14,7 +15,7 @@ body {
     width: fit-content;
     min-width: 300px;
     min-height: 300px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     top: 50%;
     left: 50%;
     position: relative;

@@ -8,6 +8,7 @@ from datetime import datetime
 #SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 #JSON_FILE = os.path.join(SCRIPT_DIR, 'tournaments.json')
 import logging
+import random
 
 # Configure the logging
 logging.basicConfig(
@@ -50,18 +51,10 @@ def load_tournament_students(mydb):
     
 def insert_team(mydb, student):
     cursor = mydb.cursor()
-    cursor.execute("SELECT t.team_id FROM Teams t JOIN Team_members tm ON t.team_id = tm.team_id WHERE t.team_id = %s AND tm.student_id = %s", 
-    (student['team_id'], student['studentid']))
-    team = cursor.fetchall()
-    logger.debug("team==")
-    logger.debug(team)
-    logger.debug("\n")
-    if team:
-        team_id = team[0]
-    else:
-        cursor.execute("INSERT INTO Teams (team_name) VALUES (%s)", (student['team_name'],))
-        mydb.commit()
-        team_id = cursor.lastrowid
+    
+    cursor.execute("INSERT INTO Teams (team_name) VALUES (%s)", (student['team_name'],))
+    mydb.commit()
+    team_id = cursor.lastrowid
     
     cursor.execute("SELECT * FROM Team_members tm  WHERE tm.student_id = %s AND tm.team_id = %s", (student["studentid"], team_id))
     student_in_team = cursor.fetchall()
@@ -80,6 +73,7 @@ def insert_team(mydb, student):
 
     cursor.close()
     return team_id
+    
 
 
 def register_student(mydb, student):
@@ -91,6 +85,7 @@ def register_student(mydb, student):
         insert_student = "INSERT INTO Students (student_id, fname, lname, last_checked_out) VALUES (%s, %s, %s, NOW())"
         cursor.execute(insert_student, (student['studentid'], student['fname'], student['lname']))
         mydb.commit()    
+    
     team_id = insert_team(mydb, student) #See insert_team function above
     
     insert_tournament_team = "INSERT INTO Tournament_teams (tournament_id, team_id) VALUES (%s, %s)"
@@ -229,7 +224,8 @@ def selectwinner(mydb, tournament_id, match_data):
     SET
         player_a_score = %s,
         player_b_score = %s,
-        match_winner = %s
+        match_winner = %s,
+        status = 'completed'
     WHERE
         match_id = %s AND tournament_id = %s
     """
@@ -237,8 +233,43 @@ def selectwinner(mydb, tournament_id, match_data):
     score_b = match_data['score_b']
     winner_id = match_data['winner_id']
     match_id = match_data['match_id']
+    match_round = match_data['match_round']
     cursor.execute(update_query, (score_a, score_b, winner_id, match_id, tournament_id))
     mydb.commit()
+
+    next_round = int(match_round) + 1
+    next_round_query = """
+        SELECT match_id, team_a_id, team_b_id FROM Matches
+        WHERE tournament_id = %s AND round_number = %s
+        AND (team_a_id IS NULL OR team_b_id IS NULL)
+    """
+    cursor.execute(next_round_query, (tournament_id, next_round))
+    next_round_matches = cursor.fetchall()
+
+    if next_round_matches:
+        random_match = random.choice(next_round_matches)  # Select a random match
+        random_match_id = random_match[0]
+        random_match_teama = random_match[1]
+        random_match_teamb = random_match[2]
+        if random_match_teama is None:
+            # Insert the winner in team_a_id if it's empty
+            update_next_round_query = """
+            UPDATE Matches
+            SET team_a_id = %s
+            WHERE match_id = %s
+            """
+            cursor.execute(update_next_round_query, (winner_id, random_match_id))
+        elif random_match_teamb is None:
+            # Insert the winner in team_b_id if it's empty
+            update_next_round_query = """
+            UPDATE Matches
+            SET team_b_id = %s
+            WHERE match_id = %s
+            """
+            cursor.execute(update_next_round_query, (winner_id, random_match_id))
+
+        mydb.commit()
+
     return
 
 def create_bracket_round_robin():
