@@ -25,21 +25,50 @@ MYSQL_PORT = os.environ.get('MYSQL_PORT')
 '''
 ##DATABSE CONNECTION 
 mydb= mysql.connector.connect(
-    host="127.0.0.1",
+    host="127.0.0.1", # Localhost or whatever IP
     database="user",  # Use your database name
-    user="root",                 # Use your database username
-    password='',
-    port=3306
+    user="root",      # Use your database username
+    password='',      # Use your database password
+    port=3306         # Local host port or whatever port its running on
     )
 '''
 mydb= mysql.connector.connect(
-    host=MYSQL_HOST,
-    database=MYSQL_DATABASE,  # Use your database name
-    user=MYSQL_USER,                 # Use your database username
-    password=MYSQL_PASSWORD,
-    port=MYSQL_PORT
+    host="127.0.0.1",
+    database='usu',  # Use your database name
+    user='root',     # Use your database username
+    password='panacea123',
+    port=3306
     )
 
+#try:
+    # Establishing a database connection
+    #cursor = mydb.cursor()
+
+    #create_table_query = """
+    #CREATE TABLE IF NOT EXISTS employees (
+        #id INT AUTO_INCREMENT PRIMARY KEY,
+       # username VARCHAR(255) NOT NULL UNIQUE,
+        #password VARCHAR(255) NOT NULL
+   # );
+   # """
+
+    #cursor.execute(create_table_query) #EXECUTE THE COMMAND TO CREATE THE TABLE
+    #mydb.commit()
+
+    # Insert data from the form if no existing record is found FROM THE TABLE QUERY
+    #username = "test"
+    #password = "test"
+    #insert_query = """
+    #INSERT INTO employees (username, password)
+    #VALUES (%s, %s);
+    #"""
+    #cursor.execute(insert_query, (username, password))
+    #mydb.commit()
+    #print("Data inserted successfully!")
+#except mysql.connector.Error as err:
+    #print(f"Error: {err}")
+#finally:
+    #cursor.close()
 
 ##THIS IS TO CHECK THE DATABSE TABLE
 def table_check(fname, lname, studentid, equip, status):
