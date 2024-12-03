@@ -177,6 +177,7 @@ def create_bracket_single_elim(mydb, tournament_id):
         "WHERE tr.tournament_id = %s", (tournament_id,)
     )
     teams = [{'team_id': row[0], 'team_name': row[1]} for row in cursor.fetchall()]
+    random.shuffle(teams)  # Randomizes the order of teams
     team_count = len(teams)
     round_count = math.ceil(math.log2(team_count)) #
     

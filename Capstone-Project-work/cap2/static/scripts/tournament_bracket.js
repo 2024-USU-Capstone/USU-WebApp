@@ -133,37 +133,7 @@ function createBracket(data) {        //Helper function to populate bracket upon
 
 
     }
-    const finalRound = rounds[rounds.length - 1]; // The last round (final round)
-    const finalMatch = finalRound[0]; // Assuming the final match is the first match in the final round
-    const grandChampionId = finalMatch.match_winner;
-    // Now create an additional round to display the grand champion
-    const grandChampionDiv = document.createElement('div');
-    grandChampionDiv.className = 'round grand-champion';
-
-    const grandChampionTitle = document.createElement('h2');
-    grandChampionTitle.textContent = 'Grand Champion';
-    grandChampionDiv.appendChild(grandChampionTitle);
-
-    // Add the winner's information to this final "round"
-    const winnerDiv = document.createElement('div');
-    winnerDiv.className = 'match-winner';
-    const winnerText = document.createElement('p');
-
-    if (grandChampionId) {
-        // Assuming you have access to team names, you can display the winner's name
-        const winnerName = (grandChampionId === finalMatch.team_a_id) ? finalMatch.team_a_name : finalMatch.team_b_name;
-        winnerText.textContent = `Winner: ${winnerName}`;
-    } else {
-        winnerText.textContent = 'Winner: Pending';
-    }
-
-    winnerDiv.appendChild(winnerText);
-
-    // Add the winner information to the grand champion section
-    grandChampionDiv.appendChild(winnerDiv);
-
-    // Append the grand champion round at the end of the bracket
-    bracketContainer.appendChild(grandChampionDiv);
+    
 
 
     const matches = document.querySelectorAll('.match');
